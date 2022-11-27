@@ -37,6 +37,10 @@ dependencies:
   flutter_riverpod: ^2.1.1
   getwidget: ^3.0.1
   pocketbase: ^0.5.0+1
+  glyphicon: ^0.3.0
+  simple_fontellico_progress_dialog: ^0.2.1
+  flutter_form_builder: ^7.7.0
+  form_builder_validators: ^8.4.0
 
 dev_dependencies:
   flutter_test:

@@ -3,8 +3,8 @@ import 'package:quiniela_hn_app/data/models/GameType.dart';
 import 'package:quiniela_hn_app/data/models/Team.dart';
 
 class Game {
-  String? id, gameDayId, homeTeamId, awayTeamId, gameTypeId, stadium,status;
-  int? homeScore, awayScore, homeScorePenalti, awayScorePenalti;
+  String? id, gameDayId, homeTeamId, awayTeamId, gameTypeId, stadium, status;
+  int? homeScore, awayScore, homeScorePenalti, awayScorePenalti, userHomeScore, userAwayScore;
   DateTime? dateTime;
 
   GameDay? gameDay;
@@ -29,7 +29,11 @@ class Game {
       awayScore: json['awayScore'],
       homeScorePenalti: json['homeScorePenalti'],
       awayScorePenalti: json['awayScorePenalti'],
-      dateTime: DateTime.tryParse(json['dateTime'] ?? '')
+      dateTime: DateTime.tryParse(json['dateTime'] ?? ''),
+      gameDay: json['expand']['gameDayId'] != null ? GameDay.fromJson(json['expand']['gameDayId']) : null,
+      homeTeam: json['expand']['homeTeamId'] != null ? Team.fromJson(json['expand']['homeTeamId']) : null,
+      awayTeam: json['expand']['awayTeamId'] != null ? Team.fromJson(json['expand']['awayTeamId']) : null,
+      gameType: json['expand']['gameTypeId'] != null ? GameType.fromJson(json['expand']['gameTypeId']) : null,
     );
   }
 }

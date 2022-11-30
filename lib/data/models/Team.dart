@@ -13,7 +13,7 @@ class Team {
       name: json['name'],
       stadium: json['stadium'],
       city: json['city'],
-      yearOfBirth: int.tryParse(json['yearOfBirth']),
+      yearOfBirth: json['yearOfBirth'],
     );
   }
 }

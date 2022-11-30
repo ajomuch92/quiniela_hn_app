@@ -8,11 +8,11 @@ class Settings {
     return Settings(
       id: json['id'],
       currentTournamentId: json['currentTournamentId'],
-      hitResult: int.tryParse(json['hitResult']),
-      exactMatch: int.tryParse(json['exactMatch']),
-      differenceGoals: int.tryParse(json['differenceGoals']),
-      homeScoreMatch: int.tryParse(json['homeScoreMatch']),
-      awayScoreMatch: int.tryParse(json['awayScoreMatch']),
+      hitResult: json['hitResult'],
+      exactMatch: json['exactMatch'],
+      differenceGoals: json['differenceGoals'],
+      homeScoreMatch: json['homeScoreMatch'],
+      awayScoreMatch: json['awayScoreMatch'],
     );
   }
 }

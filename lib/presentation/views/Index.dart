@@ -8,13 +8,29 @@ import 'package:glyphicon/glyphicon.dart';
 import 'package:quiniela_hn_app/domain/login/LoginProvider.dart';
 import 'package:simple_fontellico_progress_dialog/simple_fontico_loading.dart';
 
-class Index extends ConsumerWidget {
-  final formKey = GlobalKey<FormBuilderState>();
+import '../../domain/home/SettingsProvider.dart';
 
-  Index({Key? key}) : super(key: key);
+class Index extends ConsumerStatefulWidget {
+  const Index({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<Index> createState() => _IndexState();
+}
+
+class _IndexState extends ConsumerState<Index> {
+  final formKey = GlobalKey<FormBuilderState>();
+  late SimpleFontelicoProgressDialog dialog;
+
+  @override
+  void initState() {
+    super.initState();
+    if (mounted) {
+      dialog = SimpleFontelicoProgressDialog(context: context, barrierDimisable: false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final LoginNotifier loginNotifier = ref.watch(loginProvider);
     return Scaffold(
       body: Center(
@@ -170,7 +186,6 @@ class Index extends ConsumerWidget {
                 ),
                 GFButton(
                   onPressed: () {
-                    SimpleFontelicoProgressDialog dialog = SimpleFontelicoProgressDialog(context: context, barrierDimisable: false);
                     dialog.show(message: 'Creando usuario');
                     try {
                       if (formKey.currentState!.saveAndValidate()) {
@@ -207,7 +222,7 @@ class Index extends ConsumerWidget {
 
   void tryToLogin(BuildContext context, WidgetRef ref) async {
     final LoginNotifier loginNotifier = ref.read(loginProvider);
-    SimpleFontelicoProgressDialog dialog = SimpleFontelicoProgressDialog(context: context, barrierDimisable: false);
+    final settingsNotifier = ref.read(settingProvider.notifier);
     if (loginNotifier.validateFields()) {
       showDangerToast(context, 'Rellenar los campos requeridos');
       return;
@@ -215,17 +230,21 @@ class Index extends ConsumerWidget {
     dialog.show(message: 'Iniciando sesion');
     try {
       await loginNotifier.login();
+      await settingsNotifier.loadSettings();
+      dialog.hide();
+      if (!mounted) return;
+      Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => true);
     } catch(err) {
+      dialog.hide();
       showDangerToast(context, 'Error al iniciar sesion');
     }
-    dialog.hide();
   }
 
   void showDangerToast(BuildContext context, String message) {
     GFToast.showToast(
       message,
       context,
-      toastPosition: GFToastPosition.BOTTOM,
+      toastPosition: GFToastPosition.TOP,
       backgroundColor: GFColors.DARK,
       toastBorderRadius: 10.0,
       trailing: const Icon(

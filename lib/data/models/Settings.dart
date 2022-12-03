@@ -1,8 +1,8 @@
 class Settings {
-  String? id, currentTournamentId;
+  String? id, currentTournamentId, currentGameDayId;
   int? hitResult, exactMatch, differenceGoals, homeScoreMatch, awayScoreMatch;
 
-  Settings({ this.id, this.currentTournamentId, this.hitResult, this.exactMatch, this.differenceGoals, this.homeScoreMatch, this.awayScoreMatch});
+  Settings({ this.id, this.currentTournamentId, this.hitResult, this.exactMatch, this.differenceGoals, this.homeScoreMatch, this.awayScoreMatch, this.currentGameDayId});
 
   factory Settings.fromJson(Map<String, dynamic> json) {
     return Settings(
@@ -13,6 +13,7 @@ class Settings {
       differenceGoals: json['differenceGoals'],
       homeScoreMatch: json['homeScoreMatch'],
       awayScoreMatch: json['awayScoreMatch'],
+      currentGameDayId: json['currentGameDayId'],
     );
   }
 }

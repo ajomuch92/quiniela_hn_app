@@ -1,9 +1,11 @@
+import 'package:quiniela_hn_app/data/models/Game.dart';
 import 'package:quiniela_hn_app/data/models/tournament.dart';
 
 class GameDay {
   String? id, name, tournamentId;
   DateTime? startDate;
   Tournament? tournament;
+  List<Game> games = [];
   
   GameDay({this.id, this.name, this.tournamentId, this.startDate, this.tournament});
   

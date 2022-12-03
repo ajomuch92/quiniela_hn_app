@@ -1,5 +1,6 @@
 import 'package:quiniela_hn_app/data/models/GameDay.dart';
 import 'package:quiniela_hn_app/data/models/GameType.dart';
+import 'package:quiniela_hn_app/data/models/PredictionPerGame.dart';
 import 'package:quiniela_hn_app/data/models/Team.dart';
 
 class Game {
@@ -10,6 +11,7 @@ class Game {
   GameDay? gameDay;
   Team? homeTeam, awayTeam;
   GameType? gameType;
+  PredictionPerGame? prediction;
 
   Game({this.id, this.gameDayId, this.homeTeamId, this.awayTeamId, this.gameTypeId, this.stadium,
     this.homeScore, this.awayScore, this.homeScorePenalti, this.awayScorePenalti, this.status,

@@ -7,8 +7,9 @@ class SettingsNotifier extends StateNotifier<Settings> {
     loadSettings();
   }
 
-  Future<void> loadSettings() async {
+  Future<Settings> loadSettings() async {
     state = await SettingsRepository.getSettings();
+    return state;
   }
 
 }

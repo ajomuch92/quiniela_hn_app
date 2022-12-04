@@ -35,15 +35,26 @@ class GameRepository {
   Future<List<GameDay>> getListGames(String tournamentId, String currentGameDayId, void Function(RecordSubscriptionEvent) callback) async {
     try {
       List<GameDay> listGameDays = await getListGameDays(tournamentId, callback);
+      List<Game> games = listGameDays.map((e) => e.games).expand((element) => element).toList();
+      List<PredictionPerGame> predictions = await getPredictions(games);
       for(GameDay gameDay in listGameDays) {
-        if (gameDay.id == currentGameDayId) {
           for(Game game in gameDay.games) {
-            game.prediction = await getPrediction(game.id!);
+            PredictionPerGame prediction = predictions.firstWhere((element) => element.gameId == game.id, orElse: () => PredictionPerGame(),);
+            game.prediction = prediction;
           }
-        }
       }
       return listGameDays;
     } catch (err) {
+      rethrow;
+    }
+  }
+
+  Future<List<PredictionPerGame>> getPredictions(List<Game> games) async {
+    try {
+      String queryFilter = games.map((e) => 'gameId="${e.id}"').join('||');
+      List<RecordModel> recordModel = await _pb.collection('predictionPerGame').getFullList(filter: '($queryFilter) && userId="$userId"');
+      return recordModel.map((e) => PredictionPerGame.fromJson(e.toJson())).toList();
+    } catch (ex) {
       rethrow;
     }
   }

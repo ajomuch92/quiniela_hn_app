@@ -8,11 +8,11 @@ class SettingsRepository {
 
   static Future<Settings> getSettings () async {
     try {
-      ResultList<RecordModel> list = await pocketBaseClient.collection('settings').getList(expand: 'currentTournamentId');
-      if (list.items.isEmpty) {
+      List<RecordModel> list = await pocketBaseClient.collection('settings').getFullList(expand: 'currentTournamentId');
+      if (list.isEmpty) {
         return Settings();
       }
-      return Settings.fromJson(list.items[0].toJson());
+      return Settings.fromJson(list.first.toJson());
     } catch (err) {
       return Settings();
     }

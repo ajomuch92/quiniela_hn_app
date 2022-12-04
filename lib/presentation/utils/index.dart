@@ -19,7 +19,7 @@ enum ToastType {
   final ToastMetaData metaData;
 }
 
-void showDangerToast(BuildContext context, String message, ToastType toastType) {
+void showToast(BuildContext context, String message, ToastType toastType) {
     GFToast.showToast(
       message,
       context,

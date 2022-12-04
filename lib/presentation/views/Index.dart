@@ -8,6 +8,8 @@ import 'package:glyphicon/glyphicon.dart';
 import 'package:quiniela_hn_app/domain/login/LoginProvider.dart';
 import 'package:simple_fontellico_progress_dialog/simple_fontico_loading.dart';
 
+import '../../data/models/Settings.dart';
+import '../../domain/home/HomeProvider.dart';
 import '../../domain/home/SettingsProvider.dart';
 
 class Index extends ConsumerStatefulWidget {
@@ -223,6 +225,7 @@ class _IndexState extends ConsumerState<Index> {
   void tryToLogin(BuildContext context, WidgetRef ref) async {
     final LoginNotifier loginNotifier = ref.read(loginProvider);
     final settingsNotifier = ref.read(settingProvider.notifier);
+    final games = ref.read(gamesProvider.notifier);
     if (loginNotifier.validateFields()) {
       showDangerToast(context, 'Rellenar los campos requeridos');
       return;
@@ -230,7 +233,8 @@ class _IndexState extends ConsumerState<Index> {
     dialog.show(message: 'Iniciando sesion');
     try {
       await loginNotifier.login();
-      await settingsNotifier.loadSettings();
+      Settings _settings = await settingsNotifier.loadSettings();
+      await games.loadGames(_settings.currentTournamentId!, _settings.currentGameDayId!);
       dialog.hide();
       if (!mounted) return;
       Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => true);

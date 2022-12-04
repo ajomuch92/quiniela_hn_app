@@ -1,9 +1,6 @@
-import 'dart:io';
-
 class Team {
-  String? id, name, stadium, city;
+  String? id, name, stadium, city, image;
   int? yearOfBirth;
-  File? image;
 
   Team({this.id, this.name, this.stadium, this.city, this.yearOfBirth, this.image});
 
@@ -14,6 +11,7 @@ class Team {
       stadium: json['stadium'],
       city: json['city'],
       yearOfBirth: json['yearOfBirth'],
+      image: json['image'],
     );
   }
 }

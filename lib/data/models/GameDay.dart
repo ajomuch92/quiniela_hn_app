@@ -14,7 +14,7 @@ class GameDay {
       id: json['id'],
       name: json['name'],
       tournamentId: json['tournamentId'],
-      startDate: DateTime.tryParse(json['startDate'] ?? '')
+      startDate: DateTime.tryParse(json['startDate'] ?? ''),
     );
   }
 }

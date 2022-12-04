@@ -21,4 +21,14 @@ class PredictionPerGame {
       joker: json['joker']
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'gameId': gameId,
+      'userId': userId,
+      'homeScore': homeScore,
+      'awayScore': awayScore,
+      'joker': joker,
+    };
+  }
 }

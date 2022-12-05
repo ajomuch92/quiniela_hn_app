@@ -84,3 +84,24 @@ class TimerNotifier extends StateNotifier<DateTime> {
 }
 
 final timerProvider = StateNotifierProvider<TimerNotifier, DateTime>((ref) => TimerNotifier());
+
+class GameListNotifier extends StateNotifier<List<Game>> {
+
+  GameListNotifier(): super([]);
+
+  void setList(List<Game> games) {
+    state = games;
+  }
+}
+
+final gameListProvider = StateNotifierProvider<GameListNotifier, List<Game>>(((ref) => GameListNotifier()));
+
+class CurrentGameDayIdNotifier extends StateNotifier<String> {
+  CurrentGameDayIdNotifier(): super('');
+
+  void setText(String newText) {
+    state = newText;
+  }
+}
+
+final currentGameIdProvider = StateNotifierProvider<CurrentGameDayIdNotifier, String>(((ref) => CurrentGameDayIdNotifier()));

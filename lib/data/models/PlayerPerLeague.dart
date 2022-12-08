@@ -13,6 +13,8 @@ class PlayerPerLeague {
       id: json['id'],
       leagueId: json['leagueId'],
       userId: json['userId'],
+      user: json['expand']['userId'] != null ? User.fromJson(json['expand']['userId']) : null,
+      league: json['expand']['leagueId'] != null ? League.fromJson(json['expand']['leagueId']) : null,
     );
   }
 }

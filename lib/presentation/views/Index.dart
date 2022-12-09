@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:glyphicon/glyphicon.dart';
+import 'package:quiniela_hn_app/domain/home/LeagueProvider.dart';
 import 'package:quiniela_hn_app/domain/login/LoginProvider.dart';
 import 'package:simple_fontellico_progress_dialog/simple_fontico_loading.dart';
 
@@ -234,7 +235,9 @@ class _IndexState extends ConsumerState<Index> {
     try {
       await loginNotifier.login();
       Settings _settings = await settingsNotifier.loadSettings();
+      final leagues = ref.read(leagueProvider.notifier);
       await games.loadGames(_settings.currentTournamentId!, _settings.currentGameDayId!);
+      await leagues.loadLeagues();
       dialog.hide();
       if (!mounted) return;
       Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => true);

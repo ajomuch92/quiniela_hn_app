@@ -15,7 +15,7 @@ class UserNotifier extends StateNotifier<User> {
 
   Future<void> changeName(String newName) async {
     try {
-      await repository.updateName(newName);
+      state = await repository.updateName(newName);
     } catch(ex) {
       rethrow;
     }

@@ -8,11 +8,12 @@ class UserRepository {
 
   UserRepository();
 
-  Future<void> updateName(String newName) async {
+  Future<User> updateName(String newName) async {
     try {
-      await _pb.collection('user').update(user.id!, body: {
+      RecordModel recordModel = await _pb.collection('users').update(user.id!, body: {
         'name': newName,
       });
+      return User.fromJson(recordModel.toJson());
     } catch (err) {
       rethrow;
     }
@@ -20,7 +21,7 @@ class UserRepository {
 
   Future<void> updatePassword(User userUpdated) async {
     try {
-      await _pb.collection('user').update(user.id!, body: {
+      await _pb.collection('users').update(user.id!, body: {
         'oldPassword': user.oldPassword,
         'password': user.password,
         'newPassword': user.newPassword,

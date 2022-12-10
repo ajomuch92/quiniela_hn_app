@@ -38,9 +38,10 @@ class LoginRepository {
     }
   }
 
-  static void logout() {
+  Future<void> logout() async {
     try {
       pocketBaseClient.authStore.clear();
+      await prefs.clear();
     } catch (err) {
       rethrow;
     }

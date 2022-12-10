@@ -1,6 +1,6 @@
 import "package:pocketbase/pocketbase.dart";
 class User {
-  String? id, name, email, username, password, usernameOrEmail;
+  String? id, name, email, username, password, usernameOrEmail, oldPassword, newPassword;
 
   User({this.id, this.name, this.email, this.username, this.password, this.usernameOrEmail});
 

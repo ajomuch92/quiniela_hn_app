@@ -12,6 +12,7 @@ import 'package:quiniela_hn_app/domain/home/SettingsProvider.dart';
 import 'package:quiniela_hn_app/presentation/utils/index.dart';
 import 'package:quiniela_hn_app/presentation/views/Home/Tab1.dart';
 import 'package:quiniela_hn_app/presentation/views/Home/Tab2.dart';
+import 'package:quiniela_hn_app/presentation/views/Home/Widgets/CustomDrawer.dart';
 
 class Home extends ConsumerStatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -48,15 +49,8 @@ class _HomeState extends ConsumerState<Home> with TickerProviderStateMixin {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       resizeToAvoidBottomInset : false,
+      drawer: const CustomDrawer(),
       appBar: GFAppBar(
-        leading:  GFIconButton(
-          icon: const Icon(
-            Glyphicon.list,
-            color: Colors.white,
-          ),
-          onPressed: () {},
-          type: GFButtonType.transparent,
-        ),
         searchBar: false,
         title: const Text('Quiniela Liga HN'),
       ),

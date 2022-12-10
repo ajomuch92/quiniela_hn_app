@@ -37,6 +37,14 @@ class LoginNotifier extends ChangeNotifier {
     return usernameOrEmail.isEmpty || password.isEmpty;
   }
 
+  Future<void> logout() async {
+    try {
+      await repository.logout();
+    } catch (err) {
+      rethrow;
+    }
+  }
+
 }
 
 final loginProvider = ChangeNotifierProvider((ref) => LoginNotifier());

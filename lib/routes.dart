@@ -9,6 +9,6 @@ final routes = GoRouter(routes: [
   ),
   GoRoute(
     path: '/home',
-    builder: (context, state) => const Home(),
+    builder: (context, state) => Home(),
   ),
 ], initialLocation: '/login');

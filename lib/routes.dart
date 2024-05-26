@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:quiniela_hn_app/database/index.dart';
 import 'package:quiniela_hn_app/views/home.dart';
 import 'package:quiniela_hn_app/views/login.dart';
 
@@ -11,4 +12,4 @@ final routes = GoRouter(routes: [
     path: '/home',
     builder: (context, state) => Home(),
   ),
-], initialLocation: '/login');
+], initialLocation: pb.authStore.isValid ? '/home' : '/login');

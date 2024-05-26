@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:quiniela_hn_app/database/index.dart';
 import 'package:quiniela_hn_app/routes.dart';
 
-void main() {
+void main() async {
+  await setCustomStore();
   runApp(const MyApp());
 }
 

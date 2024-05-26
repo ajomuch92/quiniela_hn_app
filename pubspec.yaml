@@ -56,6 +56,7 @@ dependencies:
   flashy_tab_bar2: ^0.0.10
   modal_bottom_sheet: ^3.0.0
   gato: ^0.0.5+1
+  shared_preferences: ^2.2.3
 
 dev_dependencies:
   flutter_test:

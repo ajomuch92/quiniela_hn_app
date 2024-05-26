@@ -16,7 +16,8 @@ class LoginController {
       String email, String password, BuildContext context) async {
     dialog ??= SimpleFontelicoProgressDialog(context: context);
     dialog!.show(
-        message: 'Iniciando...', type: SimpleFontelicoProgressDialogType.notch);
+        message: 'Iniciando...',
+        type: SimpleFontelicoProgressDialogType.hurricane);
     try {
       await tryToLogin(email, password);
       return true;
@@ -24,6 +25,28 @@ class LoginController {
       toastification.show(
           context: context,
           title: Text('Hubo un error al iniciar sesión'),
+          autoCloseDuration: const Duration(seconds: 5),
+          type: ToastificationType.error);
+      return false;
+    } finally {
+      dialog!.hide();
+    }
+  }
+
+  Future<bool> signUp(
+      Map<String, dynamic> payload, BuildContext context) async {
+    dialog ??= SimpleFontelicoProgressDialog(context: context);
+    dialog!.show(
+        message: 'Guardando...',
+        type: SimpleFontelicoProgressDialogType.hurricane);
+    try {
+      await trySignUp(payload);
+      return true;
+    } catch (e) {
+      print(e.toString());
+      toastification.show(
+          context: context,
+          title: Text('Hubo un error al intentar crear tu usuarios'),
           autoCloseDuration: const Duration(seconds: 5),
           type: ToastificationType.error);
       return false;

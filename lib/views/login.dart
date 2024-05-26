@@ -5,6 +5,7 @@ import 'package:flutter_solidart/flutter_solidart.dart';
 import 'package:go_router/go_router.dart';
 import 'package:quiniela_hn_app/controllers/LoginController.dart';
 import 'package:quiniela_hn_app/widgets/LoginForm.dart';
+import 'package:quiniela_hn_app/widgets/SignUpForm.dart';
 import 'package:tab_container/tab_container.dart';
 
 class Login extends StatefulWidget {
@@ -57,8 +58,8 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                 fontSize: 13.0,
               ),
               colors: const [
-                Colors.green,
-                Colors.blueAccent,
+                Color.fromRGBO(149, 165, 166, 1.0),
+                Color.fromRGBO(26, 188, 156, 1),
               ],
               tabs: const [
                 Text('Ingresa'),
@@ -83,7 +84,16 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                         ),
                       );
                     }
-                    return const Placeholder();
+                    return Container(
+                      padding: const EdgeInsets.all(20.0),
+                      width: min(350, MediaQuery.of(context).size.width * 0.9),
+                      height: 500,
+                      child: SignUpForm(
+                        onSignUp: (payload) async {
+                          await controller.signUp(payload, context);
+                        },
+                      ),
+                    );
                   })),
         ),
       ),

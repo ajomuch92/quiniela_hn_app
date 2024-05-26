@@ -60,6 +60,7 @@ class _LoginFormState extends State<LoginForm> {
                 ),
                 suffixIcon: GFIconButton(
                     type: GFButtonType.transparent,
+                    size: 10,
                     icon: showPassword
                         ? Icon(Glyphicon.eye)
                         : Icon(Glyphicon.eye_slash),

@@ -33,7 +33,7 @@ class _SignUpFormState extends State<SignUpForm> {
             height: 20,
           ),
           FormBuilderTextField(
-            name: 'Name',
+            name: 'name',
             keyboardType: TextInputType.emailAddress,
             decoration: const InputDecoration(
                 labelText: 'Nombre',

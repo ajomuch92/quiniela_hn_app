@@ -3,6 +3,7 @@ import 'package:quiniela_hn_app/database/index.dart';
 import 'package:quiniela_hn_app/routes.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await setCustomStore();
   runApp(const MyApp());
 }

@@ -4,12 +4,28 @@ import 'package:flutter_solidart/flutter_solidart.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:glyphicon/glyphicon.dart';
 import 'package:go_router/go_router.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:quiniela_hn_app/controllers/HomeController.dart';
+import 'package:quiniela_hn_app/widgets/HomeList.dart';
 
 class Home extends StatelessWidget {
   Home({super.key});
   final HomeController controller = HomeController();
   final List<String> titles = ['Inicio', 'Predicciones', 'Mi perfil'];
+
+  showBottomSheet(BuildContext context) {
+    showCupertinoModalBottomSheet(
+      context: context,
+      topRadius: const Radius.circular(25),
+      elevation: 10,
+      builder: (context) => SingleChildScrollView(
+        controller: ModalScrollController.of(context),
+        child: Container(
+          height: 250,
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +50,19 @@ class Home extends StatelessWidget {
               return Text(titles[value]);
             }),
       ),
-      body: Center(
-        child: Text('Home'),
+      body: Container(
+        padding: const EdgeInsets.all(15),
+        child: PageView(
+          controller: controller.pageController,
+          children: [
+            HomeList(
+              resourceGroup: controller.groupsResource,
+              onChange: controller.onCheckedChanged,
+            ),
+            Placeholder(),
+            Placeholder(),
+          ],
+        ),
       ),
       bottomNavigationBar: SignalBuilder(
           signal: controller.selectedIndex,
@@ -73,7 +100,9 @@ class Home extends StatelessWidget {
           builder: (context, value, child) {
             if (value == 0) {
               return FloatingActionButton(
-                onPressed: () {},
+                onPressed: () {
+                  showBottomSheet(context);
+                },
                 child: Icon(Glyphicon.plus),
               );
             }

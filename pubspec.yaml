@@ -57,6 +57,9 @@ dependencies:
   modal_bottom_sheet: ^3.0.0
   gato: ^0.0.5+1
   shared_preferences: ^2.2.3
+  custom_sliding_segmented_control: ^1.8.3
+  group_button: ^5.3.4
+  text_divider: ^1.0.0
 
 dev_dependencies:
   flutter_test:

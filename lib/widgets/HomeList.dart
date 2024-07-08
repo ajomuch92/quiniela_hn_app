@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_solidart/flutter_solidart.dart';
-import 'package:getwidget/getwidget.dart';
 import 'package:intl/intl.dart';
-import 'package:quiniela_hn_app/models/Group.dart';
+import 'package:quiniela_hn_app/models/Tournament.dart';
 
 class HomeList extends StatelessWidget {
-  final Resource<List<Group>> resourceGroup;
-  final Function(bool)? onChange;
+  final Resource<List<Tournament>> resourceGroup;
   final Signal isChecked = Signal(false);
-  HomeList({super.key, required this.resourceGroup, this.onChange});
+  HomeList({super.key, required this.resourceGroup});
 
   @override
   Widget build(BuildContext context) {
@@ -17,25 +15,14 @@ class HomeList extends StatelessWidget {
       children: [
         const Text(
           'Bienvenido',
-          style: TextStyle(fontSize: 20),
+          style: TextStyle(fontSize: 24),
           textAlign: TextAlign.left,
         ),
-        SignalBuilder(
-            signal: isChecked,
-            builder: (context, value, child) {
-              return GFCheckboxListTile(
-                titleText: 'Mostrarme solo los grupos creados por mí',
-                position: GFPosition.start,
-                size: GFSize.SMALL,
-                activeBgColor: GFColors.PRIMARY,
-                type: GFCheckboxType.circle,
-                onChanged: (newValue) {
-                  isChecked.value = newValue;
-                  onChange!(newValue);
-                },
-                value: value,
-              );
-            }),
+        const Text(
+          'Puedes escoger uno de los torneos activos para jugar con tus amigos.',
+          style: TextStyle(fontSize: 16),
+          textAlign: TextAlign.left,
+        ),
         const SizedBox(
           height: 20,
         ),
@@ -48,22 +35,23 @@ class HomeList extends StatelessWidget {
                       return const Column(
                         children: [
                           Text(
-                            'No tienes grupos creados o asignados',
+                            'No hay torneos activos en juego',
                             style: TextStyle(fontSize: 16),
                           ),
-                          Text('Intenta crear uno para comenzar'),
                         ],
                       );
+                    } else if (state.isRefreshing) {
+                      return const LinearProgressIndicator();
                     }
                     return ListView.separated(
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
-                          Group group = data[index];
+                          Tournament tournament = data[index];
                           return Card(
                             child: ListTile(
-                              title: Text(group.name!),
+                              title: Text(tournament.name!),
                               subtitle: Text(
-                                  'Creado en ${DateFormat('dd/MM/yyyy').format(DateFormat('yyyy-MM-dd').parse(group.created))}'),
+                                  'Creado en ${DateFormat('dd/MM/yyyy').format(DateFormat('yyyy-MM-dd').parse(tournament.created))}'),
                               leading: const Icon(Icons.sports_soccer_sharp),
                             ),
                           );
@@ -72,7 +60,7 @@ class HomeList extends StatelessWidget {
                         itemCount: data.length);
                   },
                   error: (error, _) =>
-                      const Text('Hubo un error al cargar los grupos'),
+                      const Text('Hubo un error al cargar los torneos 😅'),
                   loading: () => const Center(
                         child: CircularProgressIndicator(),
                       ));

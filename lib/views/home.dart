@@ -6,6 +6,7 @@ import 'package:glyphicon/glyphicon.dart';
 import 'package:go_router/go_router.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:quiniela_hn_app/controllers/HomeController.dart';
+import 'package:quiniela_hn_app/widgets/HomeBottomSheetBody.dart';
 import 'package:quiniela_hn_app/widgets/HomeList.dart';
 
 class Home extends StatelessWidget {
@@ -16,12 +17,15 @@ class Home extends StatelessWidget {
   showBottomSheet(BuildContext context) {
     showCupertinoModalBottomSheet(
       context: context,
-      topRadius: const Radius.circular(25),
-      elevation: 10,
+      elevation: 20,
+      expand: true,
+      topRadius: const Radius.circular(15),
+      
       builder: (context) => SingleChildScrollView(
         controller: ModalScrollController.of(context),
         child: Container(
-          height: 250,
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+          child: HomeBottomSheetBody(),
         ),
       ),
     );
@@ -54,10 +58,10 @@ class Home extends StatelessWidget {
         padding: const EdgeInsets.all(15),
         child: PageView(
           controller: controller.pageController,
+          onPageChanged: controller.changeOnlySelectedIndex,
           children: [
             HomeList(
               resourceGroup: controller.groupsResource,
-              onChange: controller.onCheckedChanged,
             ),
             Placeholder(),
             Placeholder(),
@@ -75,38 +79,19 @@ class Home extends StatelessWidget {
               onItemSelected: controller.changeSelectedIndex,
               items: [
                 FlashyTabBarItem(
-                  icon: Icon(Glyphicon.house),
-                  title: Text('Inicio'),
+                  icon: const Icon(Glyphicon.house),
+                  title: const Text('Inicio'),
                   activeColor: Colors.blueAccent,
                   inactiveColor: Colors.black,
                 ),
                 FlashyTabBarItem(
-                  icon: Icon(Icons.sports_soccer),
-                  title: Text('Predicciones'),
-                  inactiveColor: Colors.black,
-                  activeColor: Colors.blueAccent,
-                ),
-                FlashyTabBarItem(
-                  icon: Icon(Icons.person),
-                  title: Text('Perfil'),
+                  icon: const Icon(Icons.person),
+                  title: const Text('Perfil'),
                   inactiveColor: Colors.black,
                   activeColor: Colors.blueAccent,
                 ),
               ],
             );
-          }),
-      floatingActionButton: SignalBuilder(
-          signal: controller.selectedIndex,
-          builder: (context, value, child) {
-            if (value == 0) {
-              return FloatingActionButton(
-                onPressed: () {
-                  showBottomSheet(context);
-                },
-                child: Icon(Glyphicon.plus),
-              );
-            }
-            return Container();
           }),
     );
   }
